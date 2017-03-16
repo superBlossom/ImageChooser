@@ -10,7 +10,6 @@ import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.R;
 import com.lzy.imagepicker.Utils;
 import com.lzy.imagepicker.adapter.ImagePageAdapter;
-import com.lzy.imagepicker.DataHolder;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.view.ViewPagerFixed;
 
@@ -43,7 +42,7 @@ public abstract class ImagePreviewBaseActivity extends ImageBaseActivity {
         setContentView(R.layout.activity_image_preview);
 
         mCurrentPosition = getIntent().getIntExtra(ImagePicker.EXTRA_SELECTED_IMAGE_POSITION, 0);
-        mImageItems =  (ArrayList<ImageItem>) DataHolder.getInstance().retrieve(DataHolder.DH_CURRENT_IMAGE_FOLDER_ITEMS);
+        mImageItems = (ArrayList<ImageItem>) getIntent().getSerializableExtra(ImagePicker.EXTRA_IMAGE_ITEMS);
         imagePicker = ImagePicker.getInstance();
         selectedImages = imagePicker.getSelectedImages();
 
@@ -79,7 +78,7 @@ public abstract class ImagePreviewBaseActivity extends ImageBaseActivity {
         mViewPager.setCurrentItem(mCurrentPosition, false);
 
         //初始化当前页面的状态
-        mTitleCount.setText(getString(R.string.preview_image_count, mCurrentPosition + 1, mImageItems.size()));
+        mTitleCount.setText(mCurrentPosition + 1+"/"+mImageItems.size());
     }
 
     /** 单击时，隐藏头和尾 */
